@@ -1,9 +1,5 @@
 pipeline {
     agent any
-     tools {
-            maven 'Maven 3.8.7'
-            jdk 'Java 17.0.5'
-        }
     stages {
         stage('Checkout GIT') {
             steps {
@@ -17,7 +13,10 @@ pipeline {
 
         stage('MVN CLEAN') {
             steps {
+               withMaven(maven : 'apache-maven-3.8.7') {
               bat 'mvn clean'
+
+           }
          }
         }
 
