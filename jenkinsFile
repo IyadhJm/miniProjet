@@ -1,5 +1,8 @@
 pipeline {
     agent any
+      tools {
+            maven 'apache-maven-3.8.7'
+        }
     stages {
         stage('Checkout GIT') {
             steps {
@@ -16,8 +19,8 @@ pipeline {
         stage('MVN CLEAN') {
             steps {
                 withMaven(maven: 'apache-maven-3.8.7') {
-                      bat '"C:\Program Files\apache-maven-3.8.7\bin\mvn.cmd" clean compile'
-                }
+ withMaven(maven: 'apache-maven-3.8.7') {
+                    bat 'mvn --batch-mode -V -U -e clean deploy -Dsurefire.useFile=false'                }
             }
         }
 
