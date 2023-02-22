@@ -11,16 +11,29 @@ pipeline {
             }
         }
 
-        stage('MVN CLEAN') {
+        stage('Set up Environment') {
             steps {
-               withMaven(maven : 'apache-maven-3.8.7') {
-              bat 'mvn clean compile'
-
-           }
-         }
+                withEnv(["JAVA_HOME=${tool 'jdk-17'}/bin", "PATH+MAVEN=${tool 'maven-3.8.7'}/bin:${env.JAVA_HOME}"]) {
+                    sh "java -version"
+                    sh "mvn --version"
+                }
+            }
         }
 
+        stage('MVN CLEAN') {
+            steps {
+                withMaven(maven: 'apache-maven-3.8.7') {
+                    bat 'mvn clean compile'
+                }
+            }
+        }
 
-
-}
+        stage('MVN BUILD') {
+            steps {
+                withMaven(maven: 'apache-maven-3.8.7') {
+                    sh "mvn --batch-mode -V -U -e clean deploy -Dsurefire.useFile=false"
+                }
+            }
+        }
     }
+}
