@@ -47,6 +47,18 @@ stage('MVN COMPILE') {
                     }
 
                   }
+                  stage('Docker login') {
+
+                                                  steps {
+                                                    bat 'echo "login Docker ...."'
+                                                    bat 'docker login -u iyadhj -p ijyaamdehi'
+                                                               }  }
+                                  stage('Docker push') {
+
+                                                  steps {
+                                                      bat 'echo "Docker is pushing ...."'
+                                                  	bat 'docker push iyadhj/miniprojet'
+                                                               }  }
 
 }
 }
