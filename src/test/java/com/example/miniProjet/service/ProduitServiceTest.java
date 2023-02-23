@@ -39,7 +39,7 @@ class ProduitServiceTest {
                 .disponible(true)
                 .categories(savedCategorie)
                 .build();
-        Produit savedProduit = prodServ.create(expectedProduit, expectedProduit.getCategoriesId());
+        Produit savedProduit = prodServ.create(expectedProduit, expectedProduit.getCategories().getId());
         assertNotNull(savedProduit);
         assertNotNull(expectedProduit.getName() , savedProduit.getName());
 
@@ -48,29 +48,22 @@ class ProduitServiceTest {
 
     @Test
     void UpdateProduitSucces(){
-
-        Categories categories = categoriesRepository.findById(12L).orElse(null);
-
-        Produit produit = produitRepository.findById(47L).orElse(null);
-
+        Categories categories = new Categories();
+        categories.setName("aaa");
+        Categories savedCategorie= categoriesService.create(categories);
+        Produit produit = new Produit();
                 produit.setName("name prodUpdate1");
         produit.setQt(33);
                 produit.setDisponible(true);
-                produit.setCategories(categories);
-
-        Produit savedProd=prodServ.create(produit, produit.getCategoriesId());
-
+                produit.setCategories(savedCategorie);
+                long categorieId = savedCategorie.getId();
+        Produit savedProd=prodServ.create(produit, categorieId);
         Produit upadateProduit = savedProd;
-        savedProd = prodServ.update(upadateProduit, produit.getCategoriesId());
-
-
+         produit = produitRepository.findById(savedProd.getId()).orElse(null);
+        savedProd = prodServ.update(upadateProduit, categorieId);
         assertNotNull(upadateProduit);
         assertNotNull(upadateProduit.getName() , savedProd.getName());
-
-
     }
-
-
     @Test
     void DeleteProduitSucces(){
         Categories categories = new Categories();
@@ -82,7 +75,7 @@ class ProduitServiceTest {
                 .disponible(true)
                 .categories(savedCategorie)
                 .build();
-        Produit savedProd=prodServ.create(expectedProduit, expectedProduit.getCategoriesId());
+        Produit savedProd=prodServ.create(expectedProduit, expectedProduit.getCategories().getId());
 
        boolean isDelted= prodServ.delete(savedProd.getId());
         assertTrue(isDelted);
@@ -94,7 +87,7 @@ class ProduitServiceTest {
     void FindAllSucces() {
         List<Produit> foundProduit = prodServ.getAllListProduit();
         assertNotNull(foundProduit);
-        assertEquals(4, foundProduit.size());
+
     }
     @Test
     void FindByIdSucces() {

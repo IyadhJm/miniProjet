@@ -13,27 +13,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 class MiniProjetApplicationTests {
-	private ProduitService prodServ;
-
-	private CategoriesService categoriesService;
+	@Autowired
+	private   CategoriesService catServ;
 	@Test
 	void contextLoads() {
-
-
-		Categories categories = new Categories();
-
-		Categories savedCategorie = categoriesService.create(categories);
-		Produit expectedProduit = Produit.builder()
-				.name("name prod")
+		Categories expectedCategorie = Categories.builder()
+				.name("name cat")
 				.qt(1)
-				.disponible(true)
-				.categories(savedCategorie)
 				.build();
-
-		Produit savedProduit = prodServ.create(expectedProduit, expectedProduit.getCategoriesId());
-		assertNotNull(savedProduit);
-		assertNotNull(expectedProduit.getName() , savedProduit.getName());
-
+		Categories savedCategorie = catServ.create(expectedCategorie);
+		assertNotNull(savedCategorie);
+		assertNotNull(expectedCategorie.getName() , savedCategorie.getName());
 	}
 
 }
