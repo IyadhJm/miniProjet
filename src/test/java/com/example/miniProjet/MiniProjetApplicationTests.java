@@ -21,6 +21,7 @@ class MiniProjetApplicationTests {
 
 
 		Categories categories = new Categories();
+
 		Categories savedCategorie = categoriesService.create(categories);
 		Produit expectedProduit = Produit.builder()
 				.name("name prod")
@@ -28,6 +29,7 @@ class MiniProjetApplicationTests {
 				.disponible(true)
 				.categories(savedCategorie)
 				.build();
+
 		Produit savedProduit = prodServ.create(expectedProduit, expectedProduit.getCategoriesId());
 		assertNotNull(savedProduit);
 		assertNotNull(expectedProduit.getName() , savedProduit.getName());

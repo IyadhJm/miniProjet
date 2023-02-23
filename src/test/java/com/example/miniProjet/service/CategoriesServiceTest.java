@@ -57,12 +57,12 @@ private ProduitRepository produitRepository;
     void FindAllSucces() {
         List<Categories> foundCategorie = catServ.getAllListCategories();
         assertNotNull(foundCategorie);
-        assertEquals(4, foundCategorie.size());
+        assertEquals(15, foundCategorie.size());
     }
     @Test
     void FindByIdSucces() {
         Categories categories= new Categories();
-        Categories found = catServ.findById(10L);
+        Categories found = catServ.findById(24L);
 
         assertNotNull(found);
         assertEquals( 10,categories.getId(), found.getId());

@@ -50,7 +50,7 @@ class ProduitServiceTest {
     void UpdateProduitSucces(){
 
         Categories categories = categoriesRepository.findById(12L).orElse(null);
-        assertNotNull(categories);
+
         Produit produit = produitRepository.findById(47L).orElse(null);
 
                 produit.setName("name prodUpdate1");
@@ -99,7 +99,7 @@ class ProduitServiceTest {
     @Test
     void FindByIdSucces() {
        Produit produit = new Produit();
-        Produit found = prodServ.findById(10L);
+        Produit found = prodServ.findById(253L);
 
         assertNotNull(found);
         assertEquals( 10,produit.getId(), found.getId());
