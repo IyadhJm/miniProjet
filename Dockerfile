@@ -1,5 +1,5 @@
 FROM openjdk:17-jdk-alpine
+VOLUME /tmp
+COPY target/miniprojet-1.0.0.jar miniprojet-1.0.0.jar
 
-COPY target/my-miniProjet-0.0.1-SNAPSHOT.jar my-miniProjet-0.0.1-SNAPSHOT.jar
-
-CMD ["java", "-jar", "my-miniProjet-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/miniprojet-1.0.0.jar"]
