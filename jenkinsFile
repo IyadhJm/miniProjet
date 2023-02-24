@@ -47,6 +47,13 @@ stage('MVN COMPILE') {
                     }
 
                   }
+                   stage('Build docker image'){
+                                        steps{
+                                                script{
+                                                    bat 'docker build -t iyadhj/miniprojet-1.0.0:latest .'
+                                                                    }
+                                                                  }
+                                                              }
                   stage('Docker login') {
 
                                                   steps {
